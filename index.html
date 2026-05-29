@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>THE COLLECTOR - INFINITE POWERGRID</title>
+    <style>
+        /* ==========================================================================
+           UNIVERSAL RESPONSIVE CYBERPUNK GENERATOR UI (V11 - INJECTOR FIXED)
+           ========================================================================= */
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght=600;700&display=swap');
+
+        :root {
+            --bg-base: #030306;
+            --panel-bg: #0b0c12;
+            --border-glow: rgba(255, 255, 255, 0.05);
+            
+            /* High-Energy Neon Spectrum */
+            --neon-cyan: #00f3ff;
+            --neon-purple: #bc13fe;
+            --neon-amber: #ffaa00;
+            --neon-green: #00ff66;
+            --neon-pink: #ff0077;
+            --neon-blue: #0066ff;
+            --neon-orange: #ff5500;
+            --neon-ruby: #ff1100;
+            --neon-gold: #eedd00;
+            --neon-violet: #7700ff;
+            
+            --text-main: #ffffff;
+            --text-muted: #646e8d;
+            --bright-price: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 243, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 50% 100%, rgba(188, 19, 254, 0.04) 0%, transparent 40%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* Responsive Main Container */
+        .app-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .glass-panel {
+            background: rgba(11, 12, 18, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Cyber Alert Bar Banner */
+        .alert-banner {
+            display: none;
+            text-align: center;
+            padding: 12px;
+            background: rgba(255, 17, 0, 0.15);
+            border: 1px solid var(--neon-ruby);
+            box-shadow: 0 0 15px rgba(255, 17, 0, 0.3);
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        .alert-btn {
+            background: var(--neon-ruby);
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--neon-ruby);
+        }
+
+        /* Header Layout */
+        .header { 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            position: relative;
+            text-align: center;
+        }
+        
+        @media (min-width: 600px) {
+            .header {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+                align-items: center;
+            }
+        }
+
+        .header::before {
+            content: ''; position: absolute; top: 0; left: 5%; right: 5%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+        }
+
+        .brand-zone .title { font-size: 13px; letter-spacing: 5px; color: var(--neon-cyan); font-weight: 700; margin-bottom: 2px; }
+        .brand-zone .balance { font-size: 38px; font-weight: 700; margin: 0; line-height: 1; }
+        .brand-zone .balance span { color: var(--neon-green); }
+        .brand-zone .income-rate { font-size: 13px; color: var(--neon-purple); font-weight: 700; margin-top: 4px; }
+        .prestige-stats { font-size: 12px; color: var(--neon-cyan); font-weight: 700; margin-top: 2px; letter-spacing: 0.5px; }
+
+        /* Meta Actions Dashboard */
+        .meta-dashboard {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .streak-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        @media (min-width: 600px) {
+            .streak-wrapper { align-items: flex-end; }
+        }
+
+        .streak-badge {
+            background: rgba(255, 170, 0, 0.08);
+            border: 1px solid var(--neon-amber);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--neon-amber);
+            text-shadow: 0 0 8px rgba(255, 170, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .streak-notice {
+            font-size: 11px;
+            color: #8c96b5;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .achievements-trigger {
+            background: rgba(0, 243, 255, 0.05);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            color: var(--neon-cyan);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .achievements-trigger:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+        .shop-trigger {
+            background: rgba(188, 19, 254, 0.05);
+            border: 1px solid rgba(188, 19, 254, 0.4);
+            color: #d15eff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .shop-trigger:hover {
+            background: #bc13fe;
+            color: #000;
+            box-shadow: 0 0 15px #bc13fe;
+        }
+
+        /* Active Utility Timers Wrapper */
+        .active-timers-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .timer-tag { padding: 4px 10px; border-radius: 4px; background: rgba(0,0,0,0.4); display: none; }
+        
+        /* ==========================================================================
+           RESPONSIVE GRID LAYOUT
+           ========================================================================== */
+        .nodes-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            max-height: 65vh;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        @media (min-width: 768px) {
+            .nodes-container { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1050px) {
+            .nodes-container { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .nodes-container::-webkit-scrollbar { width: 5px; }
+        .nodes-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+        /* ==========================================================================
+           GENERATOR CARDS & ENHANCED LIGHTNING GLOW EFFECT
+           ========================================================================== */
+        .node-card {
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            transition: border-color 0.2s, box-shadow 0.2s, filter 0.2s;
+        }
+
+        .style-round { border-left: 4px solid rgba(255,255,255,0.1); border-radius: 16px; }
+        .style-sharp { border-right: 4px solid rgba(255,255,255,0.1); border-radius: 16px 2px; }
+        .style-heavy { border-top: 3px solid rgba(255,255,255,0.1); border-bottom: 3px solid rgba(255,255,255,0.1); border-radius: 6px; }
+
+        /* Amplified Lightning Overlord Glow Keyframes */
+        @keyframes lightning-glow {
+            0%, 100% { 
+                border-color: var(--node-color); 
+                box-shadow: 0 0 6px rgba(0,0,0,0.6), inset 0 0 5px var(--node-color);
+                filter: brightness(1);
+            }
+            50% { 
+                border-color: #ffffff; 
+                box-shadow: 0 0 25px var(--node-color), 0 0 45px var(--node-color), inset 0 0 10px #ffffff;
+                filter: brightness(1.25);
+            }
+        }
+        .node-card.operating { animation: lightning-glow 2.5s infinite alternate; }
+
+        .node-meta { display: flex; align-items: center; justify-content: space-between; }
+        .node-title-block { display: flex; align-items: center; gap: 10px; }
+        
+        .node-core-box {
+            width: 34px; height: 34px; background: #06070a; 
+            border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center;
+        }
+        .node-core { width: 12px; height: 12px; background: #1c1d26; }
+        .node-card.operating .node-core { background: var(--node-color); box-shadow: 0 0 12px var(--node-color); }
+
+        .node-name { font-size: 15px; font-weight: 700; color: #fff; }
+        .node-level-badge { background: rgba(255,255,255,0.03); padding: 2px 8px; border-radius: 4px; font-size: 12px; color: var(--text-muted); font-weight: 700;}
+        .node-card.operating .node-level-badge { color: var(--node-color); background: rgba(0,0,0,0.3); }
+
+        /* ==========================================================================
+           PROGRESS TUBE WITH LASER SCAN SHEEN ANIMATION
+           ========================================================================== */
+        .progress-tube { width: 100%; height: 9px; background: #050609; border-radius: 4px; overflow: hidden; position: relative; }
+        
+        @keyframes tube-laser-scan {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .progress-fill { 
+            height: 100%; 
+            width: 0%; 
+            background: linear-gradient(90deg, var(--node-color) 0%, #ffffff 50%, var(--node-color) 100%);
+            background-size: 200% 100%;
+            animation: tube-laser-scan 1.5s linear infinite;
+            box-shadow: 0 0 14px var(--node-color), 0 0 4px #fff; 
+            position: absolute; 
+        }
+        .node-card.operating .progress-fill::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 3px; background: #fff; box-shadow: 0 0 8px #fff; }
+
+        .node-metrics { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; color: var(--text-muted); }
+        .yield-display { color: var(--neon-green); font-weight: 700; }
+        .boost-display { color: var(--neon-amber); font-weight: 700; font-size: 11px; }
+
+        /* Dedicated Upgrade Bar Buttons */
+        .upgrade-action-bar {
+            width: 100%; background: rgba(4, 5, 8, 0.8); border: 1px solid rgba(255,255,255,0.04);
+            padding: 10px 12px; border-radius: 8px; display: flex; justify-content: space-between;
+            align-items: center; cursor: pointer; transition: all 0.2s;
+        }
+        .upgrade-action-bar:disabled { opacity: 0.2; cursor: not-allowed; }
+        .bar-label { font-size: 12px; font-weight: 700; color: #484f64; letter-spacing: 0.5px; }
+        .bar-price { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.15); }
+
+        .upgrade-action-bar.affordable { border-color: var(--node-color); background: rgba(255,255,255,0.02); }
+        .upgrade-action-bar.affordable .bar-label { color: var(--node-color); text-shadow: 0 0 5px var(--node-color); }
+        .upgrade-action-bar.affordable .bar-price { color: var(--bright-price); text-shadow: 0 0 8px var(--node-color); }
+
+        /* Color Nodes */
+        .n1 { --node-color: var(--neon-cyan); } .n2 { --node-color: var(--neon-purple); }
+        .n3 { --node-color: var(--neon-amber); } .n4 { --node-color: var(--neon-green); }
+        .n5 { --node-color: var(--neon-pink); }  .n6 { --node-color: var(--neon-blue); }
+        .n7 { --node-color: var(--neon-orange); }.n8 { --node-color: var(--neon-ruby); }
+        .n9 { --node-color: var(--neon-gold); }  .n10 { --node-color: var(--neon-violet); }
+
+        /* Footer Controllers */
+        .sys-controls { display: flex; gap: 10px; flex-wrap: wrap; }
+        .sys-btn { flex: 1; min-width: 130px; padding: 12px; border: none; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; background: rgba(255, 255, 255, 0.03); color: var(--text-muted); transition: 0.2s; }
+        .sys-btn:hover { background: rgba(255, 255, 255, 0.06); color: #fff; }
+        .sys-btn.hack-btn { background: rgba(255, 170, 0, 0.04); color: var(--neon-amber); border: 1px solid rgba(255, 170, 0, 0.2); }
+        .sys-btn.hack-btn:hover:not(:disabled) { background: rgba(255, 170, 0, 0.15); color: #fff; box-shadow: 0 0 15px var(--neon-amber); border-color: var(--neon-amber); }
+        .sys-btn.hack-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .sys-btn.share-btn { background: rgba(0, 243, 255, 0.03); color: rgba(0, 243, 255, 0.7); border: 1px solid rgba(0, 243, 255, 0.1); }
+        .sys-btn.share-btn:hover { background: rgba(0, 243, 255, 0.1); color: var(--neon-cyan); border-color: var(--neon-cyan); }
+        .sys-btn.danger:hover { background: rgba(255, 50, 50, 0.1); color: #ff5555; }
+        .sys-log { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 8px; }
+
+        /* INTERNAL MODAL WINDOWS FOR ACHIEVEMENTS & SHOP */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(3, 3, 5, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 1000; display: none; justify-content: center; align-items: center; padding: 15px;
+        }
+        .modal-window {
+            width: 100%; max-width: 480px; background: #0a0b11; border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 16px; box-shadow: 0 0 40px rgba(0, 243, 255, 0.15); display: flex; flex-direction: column; max-height: 85vh;
+        }
+        .modal-header {
+            padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center;
+        }
+        .modal-title { font-size: 16px; font-weight: 700; color: var(--neon-cyan); letter-spacing: 2px; }
+        .modal-close { background: transparent; border: none; color: var(--text-muted); font-size: 18px; font-weight: 700; cursor: pointer; }
+        .modal-close:hover { color: #ff0055; }
+        
+        .modal-content { padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        
+        .ach-item, .shop-item {
+            display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04); padding: 12px; border-radius: 10px; transition: 0.3s;
+        }
+        .ach-icon { width: 14px; height: 14px; border-radius: 50%; background: #222; box-shadow: inset 0 0 5px #000; flex-shrink: 0; }
+        .ach-details, .shop-details { flex-grow: 1; }
+        .ach-name, .shop-item-title { font-size: 14px; font-weight: 700; color: #aaa; margin-bottom: 2px; letter-spacing: 0.5px; }
+        .ach-desc, .shop-item-desc { font-size: 12px; color: var(--text-muted); }
+        
+        .ach-item.unlocked { border-color: rgba(0, 255, 102, 0.2); background: rgba(0, 255, 102, 0.02); }
+        .ach-item.unlocked .ach-icon { background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); }
+        .ach-item.unlocked .ach-name { color: #fff; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
+
+        .shop-buy-btn {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+            color: #fff; padding: 8px 12px; border-radius: 6px; font-weight: 700; font-size: 12px;
+            cursor: pointer; transition: 0.2s; flex-shrink: 0;
+        }
+        .shop-buy-btn:hover:not(:disabled) { background: #fff; color: #000; box-shadow: 0 0 10px #fff; }
+        .shop-buy-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+
+        /* Theme Option Blocks Layout */
+        .theme-selector-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 5px 0; }
+        .theme-btn {
+            padding: 10px; font-weight: 700; font-size: 12px; border-radius: 6px; cursor: pointer;
+            text-align: center; border: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.3); color: #888;
+        }
+        .theme-btn.active { border-color: var(--neon-cyan); color: #fff; box-shadow: 0 0 10px var(--neon-cyan); }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Cyber Security Emergency Alert Banner -->
+        <div class="alert-banner" id="cyber-attack-banner">
+            <span id="cyber-attack-text">⚠️ INTRUSION DETECTED: FIREWALL COMPROMISED (12s)</span>
+            <button class="alert-btn" onclick="defuseAttack()">DEFUSE INTRUSION</button>
+        </div>
+
+        <!-- Main Panel Header -->
+        <div class="glass-panel header">
+            <div class="brand-zone">
+                <div class="title">INFINITE POWERGRID MATRIX</div>
+                <div class="balance"><span>$</span><span id="display-money">0.00</span></div>
+                <div class="income-rate">GRID GENERATION: +$<span id="display-cps">0.00</span>/SEC</div>
+                <div class="prestige-stats" id="display-prestige-row">CORES: 0 (0% BOOST) | SHIELD ACTIVE</div>
+                
+                <!-- Dynamic Hardware Timers Displays -->
+                <div class="active-timers-row" style="margin-top: 6px;">
+                    <div class="timer-tag" id="timer-chip" style="color: var(--neon-cyan); border: 1px solid var(--neon-cyan);"> AUTO-CHIP: 0s</div>
+                    <div class="timer-tag" id="timer-boost" style="color: var(--neon-pink); border: 1px solid var(--neon-pink);">⚡ SPEED INJECTOR: 0s</div>
+                    <div class="timer-tag" id="timer-shield" style="color: var(--neon-green); border: 1px solid var(--neon-green);">️ SHIELD SECURE: 0h 0m</div>
+                </div>
+            </div>
+            <div class="meta-dashboard">
+                <div class="streak-wrapper">
+                    <div class="streak-badge"> 🔥STREAK: <span id="display-streak">1</span> DAYS</div>
+                    <div class="streak-notice">Streak resets if missed, keep the grind going!</div>
+                </div>
+                <button class="achievements-trigger" onclick="openModal()">[ ACHIEVEMENTS ]</button>
+                <button class="shop-trigger" onclick="openShopModal()">[ CYBER SHOP ]</button>
+            </div>
+        </div>
+
+        <!-- Responsive Node Grid Container -->
+        <div class="nodes-container" id="nodes-wrapper">
+            <script>
+                const shapes = ['style-round', 'style-sharp', 'style-heavy'];
+                for (let i = 1; i <= 10; i++) {
+                    let chosenShape = shapes[(i-1) % shapes.length];
+                    document.write(`
+                    <div class="node-card n${i} ${chosenShape}" id="card-node${i}">
+                        <div class="node-meta">
+                            <div class="node-title-block">
+                                <div class="node-core-box"><div class="node-core"></div></div>
+                                <div class="node-name">GENERATOR NODE 0${i==10?'10':i}</div>
+                            </div>
+                            <div class="node-level-badge" id="lvl-node${i}">LOCKED</div>
+                        </div>
+                        <div class="progress-tube"><div class="progress-fill" id="prog-node${i}"></div></div>
+                        <div class="node-metrics">
+                            <div>CYCLE YIELD: <span class="yield-display" id="yield-node${i}">OFFLINE</span></div>
+                            <div class="boost-display" id="boost-node${i}"></div>
+                        </div>
+                        <button class="upgrade-action-bar" id="btn-node${i}" onclick="handleAction('node${i}')">
+                            <span class="bar-label" id="act-node${i}">INITIALIZE NODE</span>
+                            <span class="bar-price" id="cost-node${i}">$0</span>
+                        </button>
+                    </div>
+                    `);
+                }
+            </script>
+        </div>
+
+        <!-- Terminal Operations Panel -->
+        <div class="glass-panel">
+            <div class="sys-controls">
+                <button class="sys-btn hack-btn" id="btn-active-hack" onclick="runActiveHack()">HACK INTRUSION NETWORK (Ready)</button>
+                <button class="sys-btn" onclick="saveGame()">SAVE SECURE SECTOR</button>
+                <button class="sys-btn share-btn" onclick="shareGame()">SHARE POWERGRID</button>
+                <button class="sys-btn danger" onclick="resetGame()">PURGE ALL MATRIX</button>
+            </div>
+            <div class="sys-log" id="system-log">Grid operating at optimal conditions.</div>
+        </div>
+
+    </div>
+
+    <!-- INTERNAL WINDOW FOR ACHIEVEMENTS (INFINITE ARCHIVE LAYER) -->
+    <div class="modal-overlay" id="achievements-modal">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div class="modal-title">SYSTEM ACHIEVEMENTS</div>
+                <button class="modal-close" onclick="closeModal()">[X]</button>
+            </div>
+            <div class="modal-content" id="achievements-list-container"></div>
+        </div>
+    </div>
+
+    <!-- INTERNAL WINDOW FOR CYBER BLACK MARKET / SHOP -->
+    <div class="modal-overlay" id="shop-modal">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div class="modal-title">CYBER BLACK MARKET</div>
+                <button class="modal-close" onclick="closeShopModal()">[X]</button>
+            </div>
+            <div class="modal-content">
+                
+                <!-- Automation Chip Item -->
+                <div class="shop-item">
+                    <div class="shop-details">
+                        <div class="shop-item-title" id="shop-chip-title"> TEMP AUTOMATION CHIP</div>
+                        <div class="shop-item-desc">Autopilots and buys lowest cost node upgrades for 3 minutes. (Limit: 2 per week)</div>
+                    </div>
+                    <button class="shop-buy-btn" id="buy-btn-chip" onclick="buyItem('chip')">$25,000</button>
+                </div>
+
+                <!-- Firewall Shield Item -->
+                <div class="shop-item">
+                    <div class="shop-details">
+                        <div class="shop-item-title">️ FIREWALL SECURE SHIELD</div>
+                        <div class="shop-item-desc">Creates a time-based block. Automatically deflects ALL cyber attacks for 6 hours.</div>
+                    </div>
+                    <button class="shop-buy-btn" id="buy-btn-shield" onclick="buyItem('shield')">$150,000</button>
+                </div>
+
+                <!-- Overclock Injector Item -->
+                <div class="shop-item">
+                    <div class="shop-details">
+                        <div class="shop-item-title">⚡ OVERCLOCK SPEED INJECTOR</div>
+                        <div class="shop-item-desc">Accelerates total processing frequency loop grid by 3x for 60 seconds.</div>
+                    </div>
+                    <button class="shop-buy-btn" id="buy-btn-injector" onclick="buyItem('injector')">$400,000</button>
+                </div>
+
+                <!-- Rebirth Prestige System Trigger -->
+                <div class="shop-item" style="border-color: rgba(0, 243, 255, 0.2); background: rgba(0, 243, 255, 0.02);">
+                    <div class="shop-details">
+                        <div class="shop-item-title" style="color: var(--neon-cyan);"> OVERCLOCK REBIRTH (PRESTIGE)</div>
+                        <div class="shop-item-desc" style="color: #8c96b5;">Reset grid architecture & cash for Quantum Cores. Each Core adds <b>+50% Permanent Production Yield</b>.</div>
+                    </div>
+                    <button class="shop-buy-btn" id="buy-btn-rebirth" onclick="triggerPrestigeRebirth()" style="border-color: var(--neon-cyan); color: var(--neon-cyan); font-size:11px;">REQUIRES $1.00 T</button>
+                </div>
+
+                <!-- UI Customizable Theme Engine Selection Grid -->
+                <div style="margin-top: 10px;">
+                    <div class="shop-item-title" style="margin-bottom: 6px; color: #fff;"> MATRIX INTERFACE VISUAL THEMES</div>
+                    <div class="theme-selector-grid">
+                        <button class="theme-btn" id="theme-btn-default" onclick="selectTheme('default')">CYBERPUNK</button>
+                        <button class="theme-btn" id="theme-btn-synthwave" onclick="selectTheme('synthwave')">SYNTHWAVE</button>
+                        <button class="theme-btn" id="theme-btn-matrix" onclick="selectTheme('matrix')">MATRIX CODE</button>
+                        <button class="theme-btn" id="theme-btn-overlord" onclick="selectTheme('overlord')">OVERLORD RED</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let game = {
+            money: 0,
+            streak: 1,
+            lastLogin: "",
+            lastSave: Date.now(),
+            unlockedAch: [],
+            
+            // Modular State parameters
+            quantumCores: 0,
+            shieldTimeRem: 0, 
+            chipsBoughtThisWeek: 0,
+            lastChipResetWeek: Date.now(),
+            chipTimeRem: 0,
+            injectorTimeRem: 0,
+            activeTheme: 'default',
+            
+            nodes: {
+                node1:  { id: 'node1',  lvl: 1, baseCost: 10,       multi: 1.14, baseRev: 1,           speedMs: 1000,  unlocked: true,  progress: 0 },
+                node2:  { id: 'node2',  lvl: 0, baseCost: 120,      multi: 1.15, baseRev: 12,          speedMs: 2200,  unlocked: false, progress: 0 },
+                node3:  { id: 'node3',  lvl: 0, baseCost: 1800,     multi: 1.15, baseRev: 160,         speedMs: 4500,  unlocked: false, progress: 0 },
+                node4:  { id: 'node4',  lvl: 0, baseCost: 28000,    multi: 1.16, baseRev: 2200,        speedMs: 9000,  unlocked: false, progress: 0 },
+                node5:  { id: 'node5',  lvl: 0, baseCost: 400000,   multi: 1.16, baseRev: 32000,       speedMs: 16000, unlocked: false, progress: 0 },
+                node6:  { id: 'node6',  lvl: 0, baseCost: 6500000,  multi: 1.17, baseRev: 500000,      speedMs: 28000, unlocked: false, progress: 0 },
+                node7:  { id: 'node7',  lvl: 0, baseCost: 95000000, multi: 1.17, baseRev: 7500000,     speedMs: 48000, unlocked: false, progress: 0 },
+                node8:  { id: 'node8',  lvl: 0, baseCost: 1.5e9,    multi: 1.18, baseRev: 110000000,   speedMs: 80000, unlocked: false, progress: 0 },
+                node9:  { id: 'node9',  lvl: 0, baseCost: 3.0e10,   multi: 1.18, baseRev: 1800000000,  speedMs: 140000,unlocked: false, progress: 0 },
+                node10: { id: 'node10', lvl: 0, baseCost: 5.0e11,   multi: 1.19, baseRev: 30000000000, speedMs: 240000,unlocked: false, progress: 0 }
+            }
+        };
+
+        const moneyTitles = ["THOUSANDAIRE ENERGY", "THE VAULT MASSIVE", "INFINITY CAPITALIST", "QUANTUM TRILLIONAIRE", "NEON QUADRILLIONAIRE", "QUINTILLION OVERLORD", "COSMIC SEXTILLIONAIRE"];
+        const levelTiers = [10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000];
+        const streakTiers = [3, 7, 14, 30, 60, 90, 180, 365];
+
+        let lastTime = performance.now();
+        let currentHackCooldown = 0;
+        let activeAttackTimer = 0;
+        let autoChipActionCounter = 0;
+        let eventChanceTimer = 0;
+        let lastAttackTimestamp = 0; 
+
+        function formatNum(n) {
+            if (n >= 1e12) return (n / 1e12).toFixed(2) + " T";
+            if (n >= 1e9) return (n / 1e9).toFixed(2) + " B";
+            if (n >= 1e6) return (n / 1e6).toFixed(2) + " M";
+            if (n >= 1e3) return (n / 1e3).toFixed(2) + " K";
+            return n.toFixed(2);
+        }
+
+        function getCost(node) {
+            return node.unlocked ? Math.floor(node.baseCost * Math.pow(node.multi, node.lvl)) : node.baseCost;
+        }
+
+        function getRev(node) {
+            if (node.lvl === 0) return 0;
+            let revenue = node.lvl * node.baseRev;
+            let currentBoost = 1;
+            if (node.lvl >= 10) currentBoost *= 2;
+            let milestoneBlocks = Math.floor(node.lvl / 50);
+            if (milestoneBlocks > 0) currentBoost *= Math.pow(5, milestoneBlocks);
+            
+            let prestigeMultiplier = 1 + ((game.quantumCores || 0) * 0.50);
+            return revenue * currentBoost * prestigeMultiplier;
+        }
+
+        function getBoostMultiplierLabel(node) {
+            let label = "";
+            if (node.lvl >= 10) label += "2x";
+            let milestones = Math.floor(node.lvl / 50);
+            if (milestones > 0) {
+                label = label ? label + " × " + Math.pow(5, milestones) + "x" : Math.pow(5, milestones) + "x";
+            }
+            return label ? `⚡ ${label}` : "";
+        }
+
+        function handleAction(id) {
+            let node = game.nodes[id];
+            let cost = getCost(node);
+
+            if (!node.unlocked) {
+                if (game.money >= node.baseCost) {
+                    game.money -= node.baseCost;
+                    node.unlocked = true;
+                    node.lvl = 1;
+                    logSystem(`CONNECTED: Module ${id.toUpperCase()}`);
+                }
+            } else {
+                if (game.money >= cost) {
+                    game.money -= cost;
+                    node.lvl++;
+                }
+            }
+            updateStructuralUI();
+        }
+
+        function updateStructuralUI() {
+            let totalCps = 0;
+            for (let key in game.nodes) {
+                let node = game.nodes[key];
+                let cardEl = document.getElementById(`card-${key}`);
+                let lvlEl = document.getElementById(`lvl-${key}`);
+                let yieldEl = document.getElementById(`yield-${key}`);
+                let boostEl = document.getElementById(`boost-${key}`);
+                let actEl = document.getElementById(`act-${key}`);
+                let costEl = document.getElementById(`cost-${key}`);
+                
+                if (!cardEl) continue;
+                let cost = getCost(node);
+                let rev = getRev(node);
+
+                if (node.unlocked && node.lvl > 0) {
+                    cardEl.classList.add('operating');
+                    let speedSec = (node.speedMs / 1000);
+                    if (game.injectorTimeRem > 0) speedSec /= 3;
+                    totalCps += (rev / speedSec);
+                    
+                    lvlEl.innerText = `LVL ${node.lvl}`;
+                    yieldEl.innerText = `+$${formatNum(rev)}`;
+                    boostEl.innerText = getBoostMultiplierLabel(node);
+                    actEl.innerText = "UPGRADE MATRIX CORE";
+                    costEl.innerText = `$${formatNum(cost)}`;
+                } else {
+                    cardEl.classList.remove('operating');
+                    lvlEl.innerText = `LOCKED`;
+                    yieldEl.innerText = `OFFLINE`;
+                    boostEl.innerText = "";
+                    actEl.innerText = "INITIALIZE NODE";
+                    costEl.innerText = `$${formatNum(cost)}`;
+                }
+            }
+            document.getElementById('display-cps').innerText = formatNum(totalCps);
+            document.getElementById('display-streak').innerText = game.streak;
+            
+            let pBoost = (game.quantumCores || 0) * 50;
+            let shieldStatus = (game.shieldTimeRem > 0) ? "ACTIVE" : "OFFLINE";
+            document.getElementById('display-prestige-row').innerText = `CORES: ${game.quantumCores || 0} (+${pBoost}% BOOST) | FIREWALL SHIELD: ${shieldStatus}`;
+        }
+
+        function processDayStreak() {
+            let todayStr = new Date().toDateString();
+            let yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            let yesterdayStr = yesterday.toDateString();
+
+            if (!game.lastLogin) {
+                game.streak = 1;
+                game.lastLogin = todayStr;
+            } else if (game.lastLogin === yesterdayStr) {
+                game.streak++;
+                game.lastLogin = todayStr;
+            } else if (game.lastLogin !== todayStr) {
+                game.streak = 1; 
+                game.lastLogin = todayStr;
+            }
+        }
+
+        function getProceduralMoneyData(idx) {
+            let amt = Math.pow(1000, idx + 1);
+            let title = idx < moneyTitles.length ? moneyTitles[idx] : `MATRIX CAPITAL SECTOR: ${formatNum(amt)}`;
+            return { amt: amt, title: title, desc: `Accumulate more than $${formatNum(amt)} bank balance configuration.` };
+        }
+
+        function getProceduralNodeData(nodeId, lvl) {
+            let num = nodeId.replace('node', '');
+            let padded = num.length === 1 ? '0' + num : num;
+            return { title: `NODE ${padded} SYNC OVERLOAD: LVL ${lvl}`, desc: `Upgrade Generator Node ${padded} matrix core up to Level ${lvl}.` };
+        }
+
+        function getProceduralStreakData(days) {
+            return { title: `CHRONO CYBER OPERATOR: ${days} DAYS`, desc: `Maintain a perfect network sync log streak for ${days} days.` };
+        }
+
+        function evaluateAchievements() {
+            if (!game.unlockedAch) game.unlockedAch = [];
+
+            let structural = [
+                { id: 'ach_node2_unl', cond: game.nodes.node2.unlocked, title: 'GRID INITIALIZED' },
+                { id: 'ach_node5_unl', cond: game.nodes.node5.unlocked, title: 'QUANTUM REACH' },
+                { id: 'ach_node10_unl', cond: game.nodes.node10.unlocked, title: 'OMNIPOTENT MATRIX' }
+            ];
+            structural.forEach(s => {
+                if (s.cond && !game.unlockedAch.includes(s.id)) {
+                    game.unlockedAch.push(s.id);
+                    logSystem(` DECRYPTED: ${s.title}`);
+                }
+            });
+
+            let mIdx = 0;
+            while (true) {
+                let t = getProceduralMoneyData(mIdx);
+                if (game.money >= t.amt) {
+                    let id = `money_${mIdx}`;
+                    if (!game.unlockedAch.includes(id)) {
+                        game.unlockedAch.push(id);
+                        logSystem(` DECRYPTED: ${t.title}`);
+                    }
+                    mIdx++;
+                } else { break; }
+                if (mIdx > 100) break; 
+            }
+
+            for (let key in game.nodes) {
+                let node = game.nodes[key];
+                if (!node.unlocked) continue;
+                levelTiers.forEach(lvl => {
+                    if (node.lvl >= lvl) {
+                        let id = `${key}_lvl_${lvl}`;
+                        if (!game.unlockedAch.includes(id)) {
+                            game.unlockedAch.push(id);
+                            logSystem(` DECRYPTED: ${getProceduralNodeData(key, lvl).title}`);
+                        }
+                    }
+                });
+            }
+
+            streakTiers.forEach(days => {
+                if (game.streak >= days) {
+                    let id = `streak_${days}`;
+                    if (!game.unlockedAch.includes(id)) {
+                        game.unlockedAch.push(id);
+                        logSystem(` DECRYPTED: ${getProceduralStreakData(days).title}`);
+                    }
+                }
+            });
+        }
+
+        function buildAchRowHtml(title, desc, isUnlocked) {
+            return `
+            <div class="ach-item ${isUnlocked ? 'unlocked' : ''}">
+                <div class="ach-icon"></div>
+                <div class="ach-details">
+                    <div class="ach-name">${title}</div>
+                    <div class="ach-desc">${desc}</div>
+                </div>
+            </div>`;
+        }
+
+        function buildEncryptedRowHtml() {
+            return `
+            <div class="ach-item" style="opacity: 0.35; border-style: dashed; background: rgba(0,0,0,0.2);">
+                <div class="ach-icon" style="background: #222; box-shadow: none;"></div>
+                <div class="ach-details">
+                    <div class="ach-name" style="color: #49526d; font-family: monospace; font-size:13px;">[ ⚡ ENCRYPTED ARCHIVE ]</div>
+                    <div class="ach-desc" style="color: #3b4256; font-size:11px;">Keep operating the grid node targets to unlock data.</div>
+                </div>
+            </div>`;
+        }
+
+        function openModal() {
+            let html = "";
+            let structural = [
+                { id: 'ach_node2_unl', title: 'GRID INITIALIZED', desc: 'Unlock Generator Node 02 successfully.' },
+                { id: 'ach_node5_unl', title: 'QUANTUM REACH', desc: 'Activate Generator Node 05 online.' },
+                { id: 'ach_node10_unl', title: 'OMNIPOTENT MATRIX', desc: 'Unlock the ultimate Generator Node 10.' }
+            ];
+            structural.forEach(s => {
+                let unlocked = game.unlockedAch.includes(s.id);
+                html += buildAchRowHtml(s.title, s.desc, unlocked);
+            });
+
+            let mIdx = 0;
+            while (true) {
+                let t = getProceduralMoneyData(mIdx);
+                if (game.unlockedAch.includes(`money_${mIdx}`)) {
+                    html += buildAchRowHtml(t.title, t.desc, true);
+                    mIdx++;
+                } else {
+                    html += buildEncryptedRowHtml();
+                    break;
+                }
+                if (mIdx > 100) break;
+            }
+
+            let nextStreakShown = false;
+            streakTiers.forEach(days => {
+                let id = `streak_${days}`;
+                if (game.unlockedAch.includes(id)) {
+                    let d = getProceduralStreakData(days);
+                    html += buildAchRowHtml(d.title, d.desc, true);
+                } else if (!nextStreakShown) {
+                    html += buildEncryptedRowHtml();
+                    nextStreakShown = true;
+                }
+            });
+
+            for (let key in game.nodes) {
+                let node = game.nodes[key];
+                if (!node.unlocked) continue;
+                
+                let nextLvlShown = false;
+                levelTiers.forEach(lvl => {
+                    let id = `${key}_lvl_${lvl}`;
+                    if (game.unlockedAch.includes(id)) {
+                        let d = getProceduralNodeData(key, lvl);
+                        html += buildAchRowHtml(d.title, d.desc, true);
+                    } else if (!nextLvlShown) {
+                        html += buildEncryptedRowHtml();
+                        nextLvlShown = true;
+                    }
+                });
+            }
+
+            document.getElementById('achievements-list-container').innerHTML = html;
+            document.getElementById('achievements-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('achievements-modal').style.display = 'none';
+        }
+
+        /* ==========================================================================
+           CYBER SHOP MODULAR SYSTEMS & MECHANICS INTERFACES
+           ========================================================================== */
+        function openShopModal() {
+            let oneWeekMs = 7 * 24 * 60 * 60 * 1000;
+            if (Date.now() - (game.lastChipResetWeek || 0) >= oneWeekMs) {
+                game.chipsBoughtThisWeek = 0;
+                game.lastChipResetWeek = Date.now();
+            }
+
+            let chipBtn = document.getElementById('buy-btn-chip');
+            let shieldBtn = document.getElementById('buy-btn-shield');
+            let injBtn = document.getElementById('buy-btn-injector');
+            let rebBtn = document.getElementById('buy-btn-rebirth');
+
+            document.getElementById('shop-chip-title').innerText = ` TEMP AUTOMATION CHIP (${2 - game.chipsBoughtThisWeek}/2 LEFT THIS WEEK)`;
+            
+            chipBtn.disabled = game.money < 25000 || game.chipsBoughtThisWeek >= 2;
+            shieldBtn.disabled = game.money < 150000;
+            injBtn.disabled = game.money < 400000;
+            rebBtn.disabled = game.money < 1e12; 
+
+            document.getElementById('shop-modal').style.display = 'flex';
+        }
+
+        function closeShopModal() {
+            document.getElementById('shop-modal').style.display = 'none';
+        }
+
+        function buyItem(type) {
+            if (type === 'chip' && game.money >= 25000 && game.chipsBoughtThisWeek < 2) {
+                game.money -= 25000;
+                game.chipsBoughtThisWeek++;
+                game.chipTimeRem = 180; 
+                logSystem("SOFTWARE LOADED: Autonomous Automation loop chip operational.");
+            } else if (type === 'shield' && game.money >= 150000) {
+                game.money -= 150000;
+                game.shieldTimeRem = (game.shieldTimeRem || 0) + 21600;
+                logSystem("HARDWARE LOADED: Firewall Security Shield online for 6 Hours.");
+            } else if (type === 'injector' && game.money >= 400000) {
+                game.money -= 400000;
+                game.injectorTimeRem = 60; 
+                logSystem("SYSTEM INJECTION: Acceleration injector sequence online.");
+            }
+            updateStructuralUI();
+            openShopModal(); 
+        }
+
+        function selectTheme(theme) {
+            game.activeTheme = theme;
+            const root = document.documentElement;
+            
+            document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`theme-btn-${theme}`).classList.add('active');
+
+            if (theme === 'default') {
+                root.style.setProperty('--neon-cyan', '#00f3ff');
+                root.style.setProperty('--neon-purple', '#bc13fe');
+                root.style.setProperty('--bg-base', '#030306');
+            } else if (theme === 'synthwave') {
+                root.style.setProperty('--neon-cyan', '#ff0077');
+                root.style.setProperty('--neon-purple', '#0066ff');
+                root.style.setProperty('--bg-base', '#0c0017');
+            } else if (theme === 'matrix') {
+                root.style.setProperty('--neon-cyan', '#00ff66');
+                root.style.setProperty('--neon-purple', '#004411');
+                root.style.setProperty('--bg-base', '#000500');
+            } else if (theme === 'overlord') {
+                root.style.setProperty('--neon-cyan', '#ff1100');
+                root.style.setProperty('--neon-purple', '#ff6a00');
+                root.style.setProperty('--bg-base', '#0a0101');
+            }
+        }
+
+        function runActiveHack() {
+            if (currentHackCooldown > 0) return;
+            
+            let totalCps = 0;
+            for (let key in game.nodes) {
+                let node = game.nodes[key];
+                if (node.unlocked && node.lvl > 0) {
+                    let speedSec = (node.speedMs / 1000);
+                    if (game.injectorTimeRem > 0) speedSec /= 3;
+                    totalCps += (getRev(node) / speedSec);
+                }
+            }
+            
+            let reward = Math.max(250, totalCps * 15);
+            game.money += reward;
+            currentHackCooldown = 45; 
+            logSystem(`HACK INTRUSION SUCCESS: Siphoned +$${formatNum(reward)} from external sector.`);
+        }
+
+        function triggerPrestigeRebirth() {
+            if (game.money < 1e12) return;
+            
+            if (confirm("INITIATE OVERCLOCK REBIRTH ENGINE?\n\nThis will purge all cash and Node levels in exchange for Quantum Cores. Permanent yield multiplier will rise significantly!")) {
+                let gainedCores = Math.floor(Math.sqrt(game.money / 1e12));
+                game.quantumCores = (game.quantumCores || 0) + gainedCores;
+                
+                game.money = 0;
+                for (let key in game.nodes) {
+                    if (key === 'node1') {
+                        game.nodes[key].lvl = 1;
+                        game.nodes[key].unlocked = true;
+                    } else {
+                        game.nodes[key].lvl = 0;
+                        game.nodes[key].unlocked = false;
+                    }
+                    game.nodes[key].progress = 0;
+                }
+                
+                closeShopModal();
+                logSystem(`REBIRTH SUCCESSFUL: Synchronized +${gainedCores} Quantum Cores.`);
+                updateStructuralUI();
+            }
+        }
+
+        function defuseAttack() {
+            if (activeAttackTimer > 0) {
+                activeAttackTimer = 0;
+                document.getElementById('cyber-attack-banner').style.display = 'none';
+                logSystem("FIREWALL RE-ESTABLISHED: Malicious cyber raid successfully defused.");
+            }
+        }
+
+        function triggerRandomCyberEvent() {
+            // BUG FIX: Free random injector trigger removed completely to ensure it's buy-only.
+            // Now random events only generate security attacks strictly regulated by frequency logic.
+            let now = Date.now();
+            if (now - lastAttackTimestamp < 30000) {
+                return; // Abort if interval constraints trigger breaches (Avg 2 max per min)
+            }
+            lastAttackTimestamp = now;
+
+            if ((game.shieldTimeRem || 0) > 0) {
+                logSystem("️ DEFENSE BUFFER: Active 6-Hour Firewall automatically deflected an intrusion!");
+            } else {
+                activeAttackTimer = 12; 
+                document.getElementById('cyber-attack-banner').style.display = 'flex';
+            }
+        }
+
+        function shareGame() {
+            const gameUrl = window.location.href;
+            navigator.clipboard.writeText(gameUrl).then(() => {
+                logSystem(" LINK COPIED! Transmit it to share the matrix grid.");
+            }).catch(() => {
+                logSystem("⚠️ ERROR: Secure clipboard manual replication required.");
+            });
+        }
+
+        /* Main loop tracking engine updates execution mapping */
+        function gameLoop(currentTime) {
+            let deltaTime = currentTime - lastTime;
+            lastTime = currentTime;
+
+            // Step 1: Process Generator Node cycles progression
+            for (let key in game.nodes) {
+                let node = game.nodes[key];
+                let fillBar = document.getElementById(`prog-${key}`);
+                
+                if (node.unlocked && node.lvl > 0) {
+                    let speedModifier = (game.injectorTimeRem > 0) ? 3 : 1;
+                    node.progress += (deltaTime * speedModifier);
+                    
+                    if (node.progress >= node.speedMs) {
+                        game.money += getRev(node);
+                        node.progress = 0;
+                    }
+                    if (fillBar) {
+                        let pct = (node.progress / node.speedMs) * 100;
+                        fillBar.style.width = `${pct}%`;
+                    }
+                } else {
+                    if (fillBar) fillBar.style.width = '0%';
+                }
+            }
+
+            // Step 2: Automation Chip Loop Evaluator logic ticks
+            if (game.chipTimeRem > 0) {
+                autoChipActionCounter += deltaTime;
+                if (autoChipActionCounter >= 8000) {
+                    autoChipActionCounter = 0;
+                    
+                    let lowestCost = Infinity;
+                    let targetedKey = null;
+                    for (let key in game.nodes) {
+                        let node = game.nodes[key];
+                        if (node.unlocked) {
+                            let cost = getCost(node);
+                            if (cost < lowestCost) {
+                                lowestCost = cost;
+                                targetedKey = key;
+                            }
+                        }
+                    }
+                    if (targetedKey && game.money >= lowestCost) {
+                        game.money -= lowestCost;
+                        game.nodes[targetedKey].lvl++;
+                        logSystem(` AUTO-PILOT CHIP: Automatically upgraded ${targetedKey.toUpperCase()}`);
+                        updateStructuralUI();
+                    }
+                }
+            }
+
+            // Step 3: Global Secondary Utility Timers Handler (Frequency: 1 Second ticks)
+            eventChanceTimer += deltaTime;
+            if (eventChanceTimer >= 1000) {
+                eventChanceTimer = 0;
+
+                if (currentHackCooldown > 0) {
+                    currentHackCooldown--;
+                    document.getElementById('btn-active-hack').innerText = `HACK INTRUSION NETWORK (Cooldown: ${currentHackCooldown}s)`;
+                    document.getElementById('btn-active-hack').disabled = true;
+                } else {
+                    document.getElementById('btn-active-hack').innerText = `HACK INTRUSION NETWORK (Ready)`;
+                    document.getElementById('btn-active-hack').disabled = false;
+                }
+
+                if (game.chipTimeRem > 0) {
+                    game.chipTimeRem--;
+                    document.getElementById('timer-chip').style.display = 'block';
+                    document.getElementById('timer-chip').innerText = ` AUTO-CHIP: ${game.chipTimeRem}s`;
+                } else {
+                    document.getElementById('timer-chip').style.display = 'none';
+                }
+
+                if (game.injectorTimeRem > 0) {
+                    game.injectorTimeRem--;
+                    document.getElementById('timer-boost').style.display = 'block';
+                    document.getElementById('timer-boost').innerText = `⚡ SPEED INJECTOR: ${game.injectorTimeRem}s`;
+                } else {
+                    document.getElementById('timer-boost').style.display = 'none';
+                }
+
+                if (game.shieldTimeRem > 0) {
+                    game.shieldTimeRem--;
+                    let hours = Math.floor(game.shieldTimeRem / 3600);
+                    let mins = Math.floor((game.shieldTimeRem % 3600) / 60);
+                    document.getElementById('timer-shield').style.display = 'block';
+                    document.getElementById('timer-shield').innerText = `️ SHIELD SECURE: ${hours}h ${mins}m`;
+                } else {
+                    document.getElementById('timer-shield').style.display = 'none';
+                }
+
+                if (activeAttackTimer > 0) {
+                    activeAttackTimer--;
+                    document.getElementById('cyber-attack-text').innerText = `⚠️ INTRUSION DETECTED: FIREWALL COMPROMISED (${activeAttackTimer}s)`;
+                    if (activeAttackTimer <= 0) {
+                        document.getElementById('cyber-attack-banner').style.display = 'none';
+                        let penalty = game.money * 0.15;
+                        game.money -= penalty;
+                        logSystem(`❌ FIREWALL CRASHED: Intruders corrupted network ledger. Lost -$${formatNum(penalty)}`);
+                    }
+                }
+
+                // Random event trigger chance calculator check (20% possibility rate loop roll)
+                if (activeAttackTimer <= 0 && Math.random() < 0.20) {
+                    let nodesActive = false;
+                    for(let k in game.nodes) { if(game.nodes[k].lvl > 0) nodesActive = true; }
+                    if (nodesActive) triggerRandomCyberEvent();
+                }
+            }
+
+            document.getElementById('display-money').innerText = formatNum(game.money);
+            evaluateAchievements();
+
+            for (let key in game.nodes) {
+                let node = game.nodes[key];
+                let btn = document.getElementById(`btn-${key}`);
+                let cost = getCost(node);
+                if (btn) {
+                    if (game.money >= cost) {
+                        btn.classList.add('affordable');
+                        btn.disabled = false;
+                    } else {
+                        btn.classList.remove('affordable');
+                        btn.disabled = true;
+                    }
+                }
+            }
+            requestAnimationFrame(gameLoop);
+        }
+
+        function logSystem(msg) {
+            const el = document.getElementById('system-log');
+            el.innerText = msg;
+            setTimeout(() => { if(el.innerText === msg) el.innerText = "Grid operating at optimal conditions."; }, 4000);
+        }
+
+        function saveGame() {
+            game.lastSave = Date.now();
+            localStorage.setItem('collectorPureSaveDataV11', JSON.stringify(game));
+            logSystem("MATRIX MATRIX CONFIG STATE SAVED.");
+        }
+
+        function loadGame() {
+            let saved = localStorage.getItem('collectorPureSaveDataV11');
+            if (saved) {
+                let parsed = JSON.parse(saved);
+                if (parsed.nodes) {
+                    game.money = parsed.money || 0;
+                    game.streak = parsed.streak || 1;
+                    game.lastLogin = parsed.lastLogin || "";
+                    game.unlockedAch = parsed.unlockedAch || [];
+                    game.lastSave = parsed.lastSave || Date.now();
+                    
+                    game.quantumCores = parsed.quantumCores || 0;
+                    game.shieldTimeRem = parsed.shieldTimeRem || 0;
+                    game.chipsBoughtThisWeek = parsed.chipsBoughtThisWeek || 0;
+                    game.lastChipResetWeek = parsed.lastChipResetWeek || Date.now();
+                    game.chipTimeRem = parsed.chipTimeRem || 0;
+                    game.injectorTimeRem = parsed.injectorTimeRem || 0;
+                    game.activeTheme = parsed.activeTheme || 'default';
+                    
+                    for(let key in parsed.nodes) {
+                        if(game.nodes[key]) {
+                            game.nodes[key].lvl = parsed.nodes[key].lvl;
+                            game.nodes[key].unlocked = parsed.nodes[key].unlocked;
+                            game.nodes[key].progress = parsed.nodes[key].progress;
+                        }
+                    }
+                }
+
+                let msPassed = Date.now() - game.lastSave;
+                let secondsPassed = Math.floor(msPassed / 1000);
+                if (game.shieldTimeRem > 0) {
+                    game.shieldTimeRem = Math.max(0, game.shieldTimeRem - secondsPassed);
+                }
+
+                let offlineEarnings = 0;
+                for (let key in game.nodes) {
+                    let node = game.nodes[key];
+                    if (node.unlocked && node.lvl > 0) {
+                        let cycles = Math.floor(msPassed / node.speedMs);
+                        offlineEarnings += cycles * getRev(node);
+                    }
+                }
+                if (offlineEarnings > 0) {
+                    game.money += offlineEarnings;
+                    alert(`MATRIX ONLINE.\nOffline automation harvested: +$${formatNum(offlineEarnings)}`);
+                }
+            }
+            
+            processDayStreak();
+            selectTheme(game.activeTheme || 'default');
+            updateStructuralUI();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function resetGame() {
+            if (confirm("WARNING: Wipe all secure baseline sector data?")) {
+                localStorage.removeItem('collectorPureSaveDataV11');
+                location.reload();
+            }
+        }
+
+        setInterval(saveGame, 15000);
+        window.onload = loadGame;
+    </script>
+</body>
+</html>
